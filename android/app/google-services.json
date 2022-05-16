@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "222787967884",
+    "project_id": "readscape-7c490",
+    "storage_bucket": "readscape-7c490.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222787967884:android:7cf0ac9d48b269fac214a9",
+        "android_client_info": {
+          "package_name": "com.example.mononocle2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222787967884-917uihh6jfg2dvbc0miokmqgh1r133l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDIQNSZQ6hpm3-ccPCGl1Q6jJYgJ1Pzhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222787967884-917uihh6jfg2dvbc0miokmqgh1r133l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222787967884:android:2b4ac6af5b23aa67c214a9",
+        "android_client_info": {
+          "package_name": "com.readscape.mononocle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222787967884-917uihh6jfg2dvbc0miokmqgh1r133l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDIQNSZQ6hpm3-ccPCGl1Q6jJYgJ1Pzhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222787967884-917uihh6jfg2dvbc0miokmqgh1r133l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
