@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mononocle2/Analysis/analysis.dart';
 import 'package:mononocle2/deck/deckpage.dart';
 
-class DeckPageCode extends StatelessWidget {
-  DeckPageCode({
+class AnalysisPageCode extends StatelessWidget {
+  const AnalysisPageCode({
     required this.drawer,
     required this.signOutButton
   });
@@ -18,7 +19,7 @@ class DeckPageCode extends StatelessWidget {
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
-          "The Decks",
+          "Analysis",
           style: GoogleFonts.ubuntu(
               fontSize: 30,
               color: Colors.white54
@@ -26,7 +27,7 @@ class DeckPageCode extends StatelessWidget {
         ),
       ),
       drawer: drawer,
-      body: DeckPage(),
+      body: const AnalysisPage(),
     );
   }
 }

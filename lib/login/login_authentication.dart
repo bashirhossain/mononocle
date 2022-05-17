@@ -49,51 +49,69 @@ class AuthenticationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (loginState){
       case AppLoginState.loggedOut:
-        return Row(
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 24, bottom: 8),
-              child: StyledButton(
-                onPressed: (){
-                  startLoginFlow();
-                },
-                child: const Text('Login'),
-              ),
-            )
+            const Image(image: AssetImage('images/logo.png')),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, bottom: 8),
+                  child: StyledButton(
+                    onPressed: (){
+                      startLoginFlow();
+                    },
+                    child: const Text('Login'),
+                  ),
+                )
+              ],
+            ),
           ],
         );
       case AppLoginState.emailAddress:
-        return EmailForm(
-          callback: (email) => verifyEmail(
-            email, (e) => _showErrorDialog(context, 'Invalid Email', e)
-          )
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            EmailForm(
+              callback: (email) => verifyEmail(
+                email, (e) => _showErrorDialog(context, 'Invalid Email', e)
+              )
+            ),
+          ],
         );
       case AppLoginState.password:
-        return PasswordForm(
-          email: email!,
-          login: (email, password) {
-            signInWithEmailAndPassword(email, password,
-                    (e) => _showErrorDialog(context, 'Failed to sign in', e));
-          },
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PasswordForm(
+              email: email!,
+              login: (email, password) {
+                signInWithEmailAndPassword(email, password,
+                        (e) => _showErrorDialog(context, 'Failed to sign in', e));
+              },
+            ),
+          ],
         );
       case AppLoginState.register:
-        return RegisterForm(
-          email: email!,
-          cancel: () {
-            cancelRegistration();
-          },
-          registerAccount: (
-              email,
-              displayName,
-              password,
-              ) {
-            registerAccount(
+        return Center(
+          child: RegisterForm(
+            email: email!,
+            cancel: () {
+              cancelRegistration();
+            },
+            registerAccount: (
                 email,
                 displayName,
                 password,
-                    (e) =>
-                    _showErrorDialog(context, 'Failed to create account', e));
-          },
+                ) {
+              registerAccount(
+                  email,
+                  displayName,
+                  password,
+                      (e) =>
+                      _showErrorDialog(context, 'Failed to create account', e));
+            },
+          ),
         );
       case AppLoginState.loggedIn:
         return PageNavigator(signOut: signOut,);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mononocle2/api/firebase/decks/deck_api.dart';
+import 'package:mononocle2/deck/sliver/deck_detail.dart';
 import 'package:mononocle2/models/deck_model.dart';
 import '../../utils/widgets.dart';
 
@@ -13,7 +14,7 @@ Future<List<Deck>>? _futureOfDecks;
 class _DeckSliverListState extends State<DeckSliverList> {
   @override
   void initState() {
-    _futureOfDecks = Reader.getDecks();
+    _futureOfDecks = DeckReader.getDecks();
     super.initState();
   }
 
@@ -23,23 +24,50 @@ class _DeckSliverListState extends State<DeckSliverList> {
     return sliverView;
   }
 
+  void reload(){
+    setState(() {
+
+    });
+  }
+
   Widget getSliverList(){
     Widget sliverList = FutureBuilder(
         future: _futureOfDecks,
         builder: (BuildContext context, AsyncSnapshot<List<Deck>> snapshot){
           if(snapshot.hasData){
             List<Deck> allDecks = snapshot.data!;
-            List<ListTile> decks = [];
+            List<Widget> doneDecks = [];
+            List<Widget> notDoneDecks = [];
+            List<Widget> deck = [];
 
             for(var i in allDecks){
-              print(i.toJson());
+              if(i.date == convertTime(DateTime.now())){
+                deck.add(makeTile(i));
+              }else if(i.isDone==false){
+                notDoneDecks.add(makeTile(i));
+              }else{
+                doneDecks.add(makeTile(i));
+              }
+
             }
 
             return CustomScrollView(
               slivers: [
                 makeHeader("Today", Colors.green),
+                SliverList(
+                    delegate: SliverChildListDelegate.fixed(
+                      [...deck]
+                    )),
                 makeHeader("Not Done", Colors.lightGreen),
+                SliverList(
+                    delegate: SliverChildListDelegate.fixed(
+                        [...notDoneDecks]
+                    )),
                 makeHeader("Done", Colors.blueGrey),
+                SliverList(
+                    delegate: SliverChildListDelegate.fixed(
+                        [...doneDecks]
+                    )),
               ],
             );
           }else{
@@ -101,19 +129,27 @@ class _DeckSliverListState extends State<DeckSliverList> {
   Widget makeTile(Deck deck){
     return ListTile(
       tileColor: Colors.black,
-      hoverColor: Colors.black12,
+      hoverColor: Colors.black26,
       title: Text(
         deck.getDate,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: deck.isDone?Colors.white38:Colors.white,
+          fontSize: 24,
+        ),
+      ),
+      subtitle: Text(
+        deck.words.length.toString(),
+        style: TextStyle(
+          color: deck.isDone?Colors.white38:Colors.white,
+          fontSize: 16,
         ),
       ),
       onTap: (){
-        showDialog(
-            context: context,
-            builder: (context){
-              return Container();
-            }
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context){
+              return DeckDetailPage(deck: deck, reload: reload,);
+            }),
          );
       },
     );

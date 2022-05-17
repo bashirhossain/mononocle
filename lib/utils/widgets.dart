@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mononocle2/api/analysis/analysis_api.dart';
 import 'package:mononocle2/models/word_model.dart';
 import 'dart:math' as math;
 
@@ -28,10 +29,11 @@ class _WordSearchState extends State<WordSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          flex: 3,
+        Padding(
+          padding: const EdgeInsets.all(10.0),
           child: TextField(
             controller: _controller,
             decoration: const InputDecoration(
@@ -40,17 +42,15 @@ class _WordSearchState extends State<WordSearch> {
             ),
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: ElevatedButton(
-              onPressed: (){
-                widget.searchedWord = _controller.text;
-                widget.workWithWord(widget.searchedWord!);
-              },
-              child: const Text(
-                "Search",
-              ),
-          ),
+        StyledButton(
+            onPressed: (){
+              widget.searchedWord = _controller.text;
+              widget.workWithWord(widget.searchedWord!);
+              ScoreWriter.addScore();
+            },
+            child: const Text(
+              "Search",
+            ),
         ),
       ],
     );
@@ -58,7 +58,7 @@ class _WordSearchState extends State<WordSearch> {
 }
 
 
-Widget makeTile(BuildContext context, Word word, int index){
+Widget makeTile(BuildContext context, Word word, int index,void Function()? onTap){
   return ListTile(
     tileColor: Colors.black,
     hoverColor: Colors.black12,
@@ -66,22 +66,17 @@ Widget makeTile(BuildContext context, Word word, int index){
       word.meanings[index].partOfSpeech,
       style: const TextStyle(
         color: Colors.white,
+        fontSize: 16
       ),
     ),
     subtitle: Text(
       word.meanings[index].definitions[0].definition,
       style: const TextStyle(
         color: Colors.white,
+        fontSize: 24,
       ),
     ),
-    onTap: (){
-      showDialog(
-          context: context,
-          builder: (context){
-            return Container();
-          }
-      );
-    },
+    onTap: onTap,
   );
 }
 
@@ -154,5 +149,5 @@ class SliverHeadBarDelegate extends SliverPersistentHeaderDelegate{
 }
 
 String convertTime(DateTime dateTime){
-  return (dateTime.year.toString() + dateTime.month.toString() + dateTime.day.toString());
+  return (dateTime.year.toString() +"-"+ dateTime.month.toString() +"-"+ dateTime.day.toString());
 }

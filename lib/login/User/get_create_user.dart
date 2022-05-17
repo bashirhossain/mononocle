@@ -7,7 +7,7 @@ class User{
   String? userId = FirebaseAuth.instance.currentUser!.uid;
 
   CollectionReference tasks = FirebaseFirestore.instance.collection('decks');
-  // CollectionReference todo = FirebaseFirestore.instance.collection('todo');
+  CollectionReference scores = FirebaseFirestore.instance.collection('scores');
   // CollectionReference record = FirebaseFirestore.instance.collection('record');
   User(){
     FirebaseFirestore.instance
@@ -21,6 +21,7 @@ class User{
   }
   void addUser(){
     addDecks();
+    addScores();
   }
 
   Future<void> addDecks(){
@@ -34,15 +35,16 @@ class User{
         .then((value) => print("User decks Added"))
         .catchError((error) => print("Failed to Add user decks: $error"));
   }
-//   Future<void> addTodo(){
-//     return todo
-//         .doc(userId)
-//         .set({
-//       "todolist": {},
-//     })
-//         .then((value) => print("User Todo Added"))
-//         .catchError((error) => print("Failed to Add user todo: $error"));
-//   }
+  Future<void> addScores(){
+    return scores
+        .doc(userId)
+        .set({
+      "lookups": 0,
+      "wordrating":{},
+    })
+        .then((value) => print("User Scores Added"))
+        .catchError((error) => print("Failed to Add user todo: $error"));
+  }
 //   Future<void> addRecord(){
 //     return record
 //         .doc(userId)

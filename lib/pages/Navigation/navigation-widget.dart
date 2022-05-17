@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mononocle2/pages/PageCodes/analysispage.dart';
 import 'package:mononocle2/pages/PageCodes/deckpage.dart';
 import 'package:mononocle2/pages/PageCodes/dictionary.dart';
 import '../../utils/widgets.dart';
@@ -38,22 +39,22 @@ class ViewPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0.0, 0.005, 145, 0.0),
+              padding: EdgeInsets.fromLTRB(0.0, 50, 145, 0.0),
               child: Text(
                 "Mononocle",
                 style: GoogleFonts.italianno(
                   color: Colors.deepPurple,
-                  fontSize: 20
+                  fontSize: 40
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0.0, 0.005, 145, 0.0),
               child: Text(
-                "Team Tea BAG",
+                "Readscape",
                 style: GoogleFonts.italiana(
                     color: Colors.deepPurple,
-                    fontSize: 12
+                    fontSize: 26
                 ),
               ),
             ),
@@ -128,7 +129,10 @@ class ViewPage extends StatelessWidget {
           signOutButton: signOutButton,
         );
       case PageBeingViewed.analysis:
-        return const Center(child: Text("analysis"));
+        return AnalysisPageCode(
+          drawer: drawer,
+          signOutButton: signOutButton,
+        );
       default:
         return const Center(
           child: Text(

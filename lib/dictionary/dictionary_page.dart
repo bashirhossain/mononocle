@@ -10,8 +10,10 @@ class DictionaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     getWord("word");
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
+          Image(image: const AssetImage("images/logo.png"),width: MediaQuery.of(context).size.width,),
           Expanded(
               child: WordSearch(
                 workWithWord: (word){
@@ -30,10 +32,9 @@ class DictionaryPage extends StatelessWidget {
                                     ),
                                   );
                                 }else{
-                                  return const SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                    ),
                                   );
                                 }
                             },
